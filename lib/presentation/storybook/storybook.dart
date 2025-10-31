@@ -8,7 +8,7 @@ class AppStorybook extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Storybook(
-      stories: [customButtonStory],
+      stories: [customButtonStory, customTextStory],
       initialStory: 'Atoms/CustomButton',
     );
   }

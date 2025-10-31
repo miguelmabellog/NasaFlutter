@@ -14,7 +14,9 @@ class MainApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: 'Nasa Flutter',
-      theme: AppTheme().getTheme(context),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
       home: const MyHomePage(title: 'Nasa'),
       debugShowCheckedModeBanner: false,
     );
