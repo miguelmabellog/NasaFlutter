@@ -11,7 +11,7 @@ final Story customTextStory = Story(
       context,
       Center(
         child: CustomText(
-          'Hola mundo',
+          'Hello world',
           // type: CustomTextType.h2,
           color: Colors.blueGrey,
           fontWeight: FontWeight.bold,
