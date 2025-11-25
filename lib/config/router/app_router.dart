@@ -12,11 +12,17 @@ final appRouter = GoRouter(
       builder: (context, state) => HomeScreen(),
       routes: [
         GoRoute(
-          path: PictureDayImage.pictureDayPath,
-          name: PictureDayImage.routeName,
-          builder: (context, state) => PictureDayImage(),
+          path: PictureDayImageScreen.pictureDayPath,
+          name: PictureDayImageScreen.routeName,
+          builder: (context, state) => PictureDayImageScreen(),
         ),
       ],
+    ),
+
+    GoRoute(
+      path: NearEarthObjectsScreen.nearEarthObjectsPath,
+      name: NearEarthObjectsScreen.routeName,
+      builder: (context, state) => NearEarthObjectsScreen(),
     ),
 
     GoRoute(path: '/', redirect: (_, __) => initialRoute),
