@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/legacy.dart';
 import 'package:nasa_flutter/domain/entities/apod.dart';
 import 'package:nasa_flutter/infrastructure/models/apod_result.dart';
 import 'package:nasa_flutter/infrastructure/models/result.dart';
-import 'package:nasa_flutter/presentation/providers/apod/apod_repository_provider.dart';
+import 'package:nasa_flutter/presentation/providers/apod_repository_provider.dart';
 
 final apodByDatesProvider =
     StateNotifierProvider<ApodByDatesNotifier, ApodResult>((ref) {
@@ -11,8 +11,7 @@ final apodByDatesProvider =
       return ApodByDatesNotifier(getApod: getApod);
     });
 
-typedef GetApodCallback =
-    Future<Result<Apod>> Function(String date, bool thumbs);
+typedef GetApodCallback = Future<Result<Apod>> Function(String date);
 
 class ApodByDatesNotifier extends StateNotifier<ApodResult> {
   bool isLoading = false;
@@ -21,11 +20,11 @@ class ApodByDatesNotifier extends StateNotifier<ApodResult> {
   ApodByDatesNotifier({required this.getApod})
     : super(ApodResult(isLoading: true));
 
-  Future<void> loadApodByDates(String date, bool thumbs) async {
+  Future<void> loadApodByDates(String date) async {
     if (isLoading) return;
     isLoading = true;
 
-    final result = await getApod(date, thumbs);
+    final result = await getApod(date);
 
     result.when(
       success: (apod) {

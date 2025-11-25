@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nasa_flutter/config/helpers/utils.dart';
 import 'package:nasa_flutter/core/ui/atoms/custom_text/custom_text.dart';
 import 'package:nasa_flutter/presentation/providers/apod/apod_by_dates_provider.dart';
+import 'package:nasa_flutter/presentation/providers/near_earth_objects/near_earth_objects_by_dates_provider.dart';
 
 class PictureDayImage extends ConsumerStatefulWidget {
   const PictureDayImage({super.key});
@@ -20,12 +21,24 @@ class _PictureDayImageState extends ConsumerState<PictureDayImage> {
 
     ref
         .read(apodByDatesProvider.notifier)
-        .loadApodByDates(Utils.currentDateYYYYMMDD(), false);
+        .loadApodByDates(Utils.currentDateYYYYMMDD());
+
+    ref
+        .read(nearEarthObjectsByDatesProvider.notifier)
+        .loadNearEarthObjectsByDates(
+          Utils.currentDateYYYYMMDD(),
+          Utils.currentDateYYYYMMDD(),
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     final result = ref.watch(apodByDatesProvider);
+    final resultNearEarthObjects = ref.watch(nearEarthObjectsByDatesProvider);
+
+    debugPrint(
+      "resultNearEarthObjects: ${resultNearEarthObjects.nearEarthObjectResponse?.nearEarthObjects}",
+    );
 
     if (result.isLoading) {
       return const Center(child: CircularProgressIndicator());
