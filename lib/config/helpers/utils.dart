@@ -1,8 +1,8 @@
 class Utils {
   static String currentDateYYYYMMDD() {
     final dateTime = DateTime.now();
-    final day = dateTime.day;
-    final month = dateTime.month;
+    final day = dateTime.day.toString().padLeft(2, '0');
+    final month = dateTime.month.toString().padLeft(2, '0');
     final year = dateTime.year;
 
     return '$year-$month-$day';

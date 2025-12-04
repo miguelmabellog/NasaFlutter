@@ -38,22 +38,29 @@ class NearEarthObjectsByDatesNotifier
   ) async {
     isLoading = true;
 
-    final result = await getNearEarthObjects(startDate, endDate);
+    try {
+      final result = await getNearEarthObjects(startDate, endDate);
 
-    result.when(
-      success: (nearEarthObjectResponse) {
-        state = NearEarthObjectsResult(
-          nearEarthObjectResponse: nearEarthObjectResponse,
-          isLoading: false,
-        );
-      },
-      failure: (errorMessage) {
-        state = NearEarthObjectsResult(
-          errorMessage: errorMessage,
-          isLoading: false,
-        );
-      },
-    );
+      result.when(
+        success: (nearEarthObjectResponse) {
+          state = NearEarthObjectsResult(
+            nearEarthObjectResponse: nearEarthObjectResponse,
+            isLoading: false,
+          );
+        },
+        failure: (errorMessage) {
+          state = NearEarthObjectsResult(
+            errorMessage: errorMessage,
+            isLoading: false,
+          );
+        },
+      );
+    } catch (e) {
+      state = NearEarthObjectsResult(
+        errorMessage: e.toString(),
+        isLoading: false,
+      );
+    }
 
     isLoading = false;
   }

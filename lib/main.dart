@@ -18,7 +18,7 @@ class MainApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       routerConfig: appRouter,
-      title: 'Nasa Flutter',
+      title: 'Nasa',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,

@@ -32,34 +32,31 @@ class _PictureDayImageState extends ConsumerState<PictureDayImageScreen> {
     }
 
     if (result.errorMessage.isNotEmpty) {
-      return Scaffold(body: Center(child: Text(result.errorMessage)));
+      return Center(child: Text(result.errorMessage));
     }
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Picture Day')),
-      body: Center(
-        child: Column(
-          spacing: 4,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.network(
-              result.apod!.url,
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
+    return Center(
+      child: Column(
+        spacing: 4,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.network(
+            result.apod!.url,
+            fit: BoxFit.cover,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
 
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: const CircularProgressIndicator(strokeWidth: 2),
-                  ),
-                );
-              },
-            ),
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: const CircularProgressIndicator(strokeWidth: 2),
+                ),
+              );
+            },
+          ),
 
-            CustomText(result.apod!.title),
-          ],
-        ),
+          CustomText(result.apod!.title),
+        ],
       ),
     );
   }

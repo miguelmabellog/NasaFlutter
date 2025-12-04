@@ -7,10 +7,11 @@ import 'package:nasa_flutter/core/ui/pages/there_is_not_data.dart';
 import 'package:nasa_flutter/presentation/providers/near_earth_objects/near_earth_objects_by_dates_provider.dart';
 
 class NearEarthObjectsScreen extends ConsumerStatefulWidget {
-  const NearEarthObjectsScreen({super.key});
+  final Function(int)? goToBack;
+  const NearEarthObjectsScreen({super.key, this.goToBack});
 
-  static final String routeName = '/near_earth_objects';
-  static final String nearEarthObjectsPath = '/near_earth_objects';
+  static final String routeName = 'near_earth_objects_screen';
+  static final String nearEarthObjectsPath = '/near_earth_objects_screen';
 
   @override
   ConsumerState<NearEarthObjectsScreen> createState() =>
@@ -39,12 +40,18 @@ class _NearEarthObjectsScreenState
       return Scaffold(body: const Center(child: CircularProgressIndicator()));
     }
 
+    debugPrint(result.nearEarthObjectResponse?.nearEarthObjects.toString());
+    debugPrint(Utils.currentDateYYYYMMDD());
+
     final nearEarthObjects = result
         .nearEarthObjectResponse
         ?.nearEarthObjects[Utils.currentDateYYYYMMDD()];
 
     if (nearEarthObjects == null || nearEarthObjects.isEmpty) {
-      return const ThereIsNotData();
+      return ThereIsNotData(
+        onButtonPressed: () => widget.goToBack?.call(0),
+        buttonTitle: 'Back to Home',
+      );
     }
 
     return Scaffold(
