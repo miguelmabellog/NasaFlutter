@@ -6,7 +6,7 @@ import 'package:nasa_flutter/presentation/providers/apod/apod_by_dates_provider.
 
 class PictureDayImageScreen extends ConsumerStatefulWidget {
   const PictureDayImageScreen({super.key});
-  static final String routeName = '/picture_day';
+  static final String routeName = 'picture_day';
   static final String pictureDayPath = '/picture_day';
 
   @override

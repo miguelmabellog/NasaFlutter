@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nasa_flutter/config/helpers/page_name_by_index.dart';
 import 'package:nasa_flutter/presentation/screens/screens.dart';
 import 'package:nasa_flutter/shared/widgets/widgets.dart';
 
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Nasa Flutter')),
+      appBar: AppBar(title: Text(pageNameByIndex(currentIndex))),
       body: PageView(
         controller: pageViewController,
         physics: const NeverScrollableScrollPhysics(),
