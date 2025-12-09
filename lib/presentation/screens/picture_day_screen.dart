@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nasa_flutter/config/helpers/utils.dart';
 import 'package:nasa_flutter/core/ui/atoms/custom_text/custom_text.dart';
+import 'package:nasa_flutter/core/ui/molecules/molecules.dart';
 import 'package:nasa_flutter/presentation/providers/apod/apod_by_dates_provider.dart';
 
 class PictureDayImageScreen extends ConsumerStatefulWidget {
@@ -40,20 +41,28 @@ class _PictureDayImageState extends ConsumerState<PictureDayImageScreen> {
         spacing: 4,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.network(
-            result.apod!.url,
-            fit: BoxFit.cover,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
+          if (result.apod!.mediaType == "image")
+            Image.network(
+              result.apod!.url,
+              fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
 
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: const CircularProgressIndicator(strokeWidth: 2),
-                ),
-              );
-            },
-          ),
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: const CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                );
+              },
+            ),
+
+          if (result.apod!.mediaType == "video")
+            VideoPlayer(
+              videoUrl: "https://youtu.be/ZmcU5UY_Pio?list=RDZmcU5UY_Pio",
+              // videoUrl: result.apod!.url,
+              caption: result.apod!.title,
+            ),
 
           CustomText(result.apod!.title),
         ],

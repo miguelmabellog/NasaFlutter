@@ -22,7 +22,7 @@ class Apod {
       copyright: json['copyright'] ?? '',
       date: json['date'],
       explanation: json['explanation'],
-      hdurl: json['hdurl'],
+      hdurl: json['hdurl'] ?? '',
       mediaType: json['media_type'],
       title: json['title'],
       url: json['url'],
