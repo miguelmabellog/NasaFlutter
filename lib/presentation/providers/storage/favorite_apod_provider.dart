@@ -30,22 +30,25 @@ class StorageApodNotifier extends StateNotifier<Map<int, Apod>> {
   }
 
   Future<void> toggleFavoriteApod(Apod apod) async {
-    final isFavorite = state.containsKey(apod.date.hashCode);
+    final wasFavorite = state.containsKey(apod.date.hashCode);
     await localStorageRepository.toggleFavoriteApod(apod);
 
-    if (isFavorite) {
-      state.remove(apod.date.hashCode);
-      state = {...state};
-      return;
-    }
+    final nowFavorite = !wasFavorite;
 
-    state = {...state, apod.date.hashCode: apod};
+    if (wasFavorite == nowFavorite) return;
+
+    if (nowFavorite) {
+      state = {...state, apod.date.hashCode: apod};
+    } else {
+      final newState = Map<int, Apod>.from(state);
+      newState.remove(apod.date.hashCode);
+      state = newState;
+    }
   }
 }
 
 final favoriteApodProvider =
     StateNotifierProvider<StorageApodNotifier, Map<int, Apod>>((ref) {
-      //*** read() is used to get the value of the provider, could be watch() */
       final localStorageRepository = ref.read(localStorageRepositoryProvider);
 
       return StorageApodNotifier(

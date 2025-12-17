@@ -60,17 +60,7 @@ class _PictureDayImageState extends ConsumerState<PictureDayImageScreen> {
             ),
           ),
 
-          _FavoriteIconButton(
-            apodDate: apodDate,
-            apod: result.apod!,
-            onToggle: () async {
-              await ref
-                  .read(favoriteApodProvider.notifier)
-                  .toggleFavoriteApod(result.apod!);
-
-              ref.invalidate(isFavoriteApodProvider(apodDate));
-            },
-          ),
+          _FavoriteIconButton(apodDate: apodDate, apod: result.apod!),
         ],
       ),
     );
@@ -101,13 +91,8 @@ class PictureImage extends StatelessWidget {
 class _FavoriteIconButton extends ConsumerWidget {
   final String apodDate;
   final Apod apod;
-  final VoidCallback onToggle;
 
-  const _FavoriteIconButton({
-    required this.apodDate,
-    required this.apod,
-    required this.onToggle,
-  });
+  const _FavoriteIconButton({required this.apodDate, required this.apod});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -123,7 +108,13 @@ class _FavoriteIconButton extends ConsumerWidget {
             size: 32,
             color: isFavorite ? Colors.red : Colors.white,
           ),
-          onPressed: onToggle,
+          onPressed: () async {
+            await ref
+                .read(favoriteApodProvider.notifier)
+                .toggleFavoriteApod(apod);
+
+            ref.invalidate(isFavoriteApodProvider(apodDate));
+          },
         ),
         loading: () => const CircularProgressIndicator(strokeWidth: 2),
         error: (_, __) => const Icon(Icons.favorite_border_rounded, size: 32),
