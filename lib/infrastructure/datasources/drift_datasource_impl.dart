@@ -9,10 +9,10 @@ class DriftDataSourceImpl implements LocalStorageDataSource {
     : database = databaseToUse ?? db;
 
   @override
-  Future<bool> isFavoriteApod(String date) async {
+  Future<bool> isFavoriteApod(String apodDate) async {
     final query = database.select(database.favoriteApod)
       ..where((table) {
-        return table.date.equals(date);
+        return table.date.equals(apodDate);
       });
 
     return await query.getSingleOrNull().then((value) => value != null);

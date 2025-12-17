@@ -8,8 +8,8 @@ class LocalStorageRepositoryImpl extends LocalStorageRepository {
   LocalStorageRepositoryImpl(this.dataSource);
 
   @override
-  Future<bool> isFavoriteApod(String date) {
-    return dataSource.isFavoriteApod(date);
+  Future<bool> isFavoriteApod(String apodDate) {
+    return dataSource.isFavoriteApod(apodDate);
   }
 
   @override
